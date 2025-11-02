@@ -98,7 +98,7 @@ After installation, you can configure:
 Select which modes you want to use from the 20+ available options:
 
 **Available Modes:**
-- Bin Hasmanim
+- Bin Hazmanim
 - No Tachanun
 - Bavarfen
 - No School
