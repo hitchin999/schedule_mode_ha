@@ -1,0 +1,92 @@
+{
+  "title": "Schedule Modes",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Schedule Modes",
+        "description": "Configure Schedule Modes for your Shul",
+        "data": {
+          "enabled_modes": "Enabled Modes",
+          "link_nt_for_bris": "Link No Tachanun when Bris is active"
+        }
+      }
+    },
+    "options": {
+      "step": {
+        "select_modes": {
+          "title": "Enable modes",
+          "description": "Select which modes to enable",
+          "data": {
+            "enabled_modes": "Enabled Modes"
+          }
+        },
+        "durations": {
+          "title": "Durations & Settings",
+          "description": "Configure default durations and settings for each mode",
+          "data": {
+            "auto_reset_time": "Auto Reset Time (HH:MM format)",
+            "link_nt_for_bris": "Link No Tachanun when Bris is active"
+          },
+          "data_description": {
+            "auto_reset_time": "Time to automatically reset modes (leave empty to disable)",
+            "link_nt_for_bris": "When enabled, No Tachanun will automatically activate when Bris mode is active"
+          }
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Only one instance of Schedule Modes is allowed."
+    }
+  },
+  "options": {
+    "step": {
+      "select_modes": {
+        "title": "Enable modes",
+        "description": "Select which modes to enable",
+        "data": {
+          "enabled_modes": "Enabled Modes"
+        }
+      },
+      "durations": {
+        "title": "Durations & Settings",
+        "description": "Configure default durations and settings for each mode",
+        "data": {
+          "auto_reset_time": "Auto Reset Time (HH:MM format)",
+          "link_nt_for_bris": "Link No Tachanun when Bris is active"
+        },
+        "data_description": {
+          "auto_reset_time": "Time to automatically reset modes (leave empty to disable)",
+          "link_nt_for_bris": "When enabled, No Tachanun will automatically activate when Bris mode is active"
+        }
+      }
+    }
+  },
+  "selector": {
+    "enabled_modes": {
+      "options": {
+        "bin_hasmanim": "Bin Hasmanim",
+        "guest_room": "Guest Room",
+        "bris": "Bris",
+        "home": "Home",
+        "no_tachnun": "No Tachanun",
+        "kiddush_mode": "Kiddush Mode",
+        "bavarfen_mode": "Bavarfen Mode",
+        "rabbi_here": "Rabbi Here",
+        "zucher_mode": "Zucher Mode",
+        "chasunah_mode": "Chasunah Mode",
+        "yahrtzeit_mode": "Yahrtzeit Mode",
+        "rabbi_away": "Rabbi Away",
+        "away_mode": "Away Mode",
+        "small_simcha_mode": "Small Simcha Mode",
+        "guest_rabbi_mode": "Guest Rabbi Mode",
+        "cleaning_mode": "Cleaning Mode",
+        "shabbos_sheva_brachos": "Shabbos Sheva Brachos",
+        "event_mode": "Event Mode",
+        "no_school": "No School",
+        "day_camp": "Day Camp",
+        "late_school": "Late School",
+        "half_day_school": "Half-Day School"
+      }
+    }
+  }
+}
