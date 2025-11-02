@@ -6,7 +6,7 @@ DOMAIN = "schedule_modes"
 # key, friendly_name, group
 MODE_DEFS = [
     ("bin_hazmanim",            "Bin Hazmanim", "base"),
-    ("guest_room",              "Guest Room", "evebt"),
+    ("guest_room",              "Guest Room", "event"),
     ("bris",                    "Bris", "event"),
     ("home",                    "Home", "event"),
     ("no_tachnun",              "No Tachanun", "base"),
@@ -101,3 +101,4 @@ def device_info_for_mode(entry_id: str, mode_key: str):
         "model": "Mode",
 
     }
+
