@@ -5,7 +5,7 @@ DOMAIN = "schedule_modes"
 
 # key, friendly_name, group
 MODE_DEFS = [
-    ("bin_hasmanim",            "Bin Hasmanim", "base"),
+    ("bin_hazmanim",            "Bin Hazmanim", "base"),
     ("guest_room",              "Guest Room", "evebt"),
     ("bris",                    "Bris", "event"),
     ("home",                    "Home", "event"),
@@ -99,4 +99,5 @@ def device_info_for_mode(entry_id: str, mode_key: str):
         "manufacturer": "OnOff Automations",
         "name": f"{mode_friendly(mode_key)}",
         "model": "Mode",
+
     }
