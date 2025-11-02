@@ -3,6 +3,7 @@
   "name": "Schedule Modes",
   "version": "0.0.1",
   "documentation": "https://github.com/OnOff-Automations/schedule_mode_ha",
+  "issue_tracker": "https://github.com/OnOff-Automations/schedule_mode_ha/issues",
   "requirements": [
     "pyluach==2.2.0",
     "hdate>=0.10.11",
@@ -13,3 +14,4 @@
   "codeowners": ["@OnOff-Automations"],
   "iot_class": "local_push"
 }
+
