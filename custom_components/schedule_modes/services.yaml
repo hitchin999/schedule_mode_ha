@@ -1,0 +1,29 @@
+schedule_mode:
+  name: Schedule Mode Window
+  description: Add a calendar event that turns a mode ON at start and OFF at end.
+  fields:
+    mode_key:
+      description: One of the enabled mode keys
+      required: true
+      selector: { text: {} }
+    start:
+      description: ISO timestamp or datetime
+      required: true
+      selector: { text: {} }
+    end:
+      description: ISO timestamp or datetime
+      required: true
+      selector: { text: {} }
+    summary:
+      description: Optional title
+      required: false
+      selector: { text: {} }
+
+clear_mode_events:
+  name: Clear Mode Events
+  description: Remove all events (or only for a mode).
+  fields:
+    mode_key:
+      description: Optional mode_key to filter
+      required: false
+      selector: { text: {} }
