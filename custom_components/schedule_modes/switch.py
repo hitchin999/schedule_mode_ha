@@ -30,11 +30,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
     auto_reset = opts.get(OPT_AUTO_RESET_TIME, "")
     if auto_reset and entities:
         hh, mm = [int(x) for x in auto_reset.split(":")]
+
         @callback
         def _daily_reset(_now):
             for e in entities:
-                if e.is_on:
-                    hass.create_task(e.async_turn_off())
+                # Only reset switches that are currently ON
+                if getattr(e, "is_on", False):
+                    hass.create_task(e.async_turn_off(controlled_by="auto_reset"))
         async_track_time_change(hass, _daily_reset, hour=hh, minute=mm, second=0)
 
 
@@ -48,7 +50,8 @@ class ModeSwitch(SwitchEntity, RestoreEntity):
         self._key = key
         self._attr_name = name
         self._attr_unique_id = f"{entry.entry_id}_{key}"
-        self.entity_id = f"switch.{self._key}"  # predictable id for mirrors
+        # Predictable entity_id for mirrors/templating
+        self.entity_id = f"switch.{self._key}"
         self._is_on = False
         self._expire_at: Optional[datetime] = None
         self._unsub_timer = None
@@ -73,25 +76,37 @@ class ModeSwitch(SwitchEntity, RestoreEntity):
         }
 
     async def async_added_to_hass(self):
+        """Restore previous state without force-turning off when no expiration existed."""
         last = await self.async_get_last_state()
         if last:
             self._is_on = last.state == "on"
             self._controlled_by = last.attributes.get("controlled_by", "manual")
             exp = last.attributes.get("expires_at")
+            # Try to restore the timestamp (may be None if it was an indefinite ON)
+            self._expire_at = None
             if exp:
                 try:
                     self._expire_at = dt_util.parse_datetime(exp)
                 except Exception:
                     self._expire_at = None
-            if self._is_on and self._expire_at:
-                now = dt_util.now()
-                if self._expire_at > now:
+
+            now = dt_util.now()
+
+            if self._is_on:
+                if self._expire_at is None:
+                    # Indefinite ON before restart → stay ON
+                    pass
+                elif self._expire_at > now:
+                    # Re-arm the timer for the remaining duration
                     self._start_timer((self._expire_at - now).total_seconds())
                 else:
-                    await self.async_turn_off()
+                    # The stored expiration is in the past → treat as expired
+                    self._is_on = False
+                    self._expire_at = None
         else:
             # No previous state - default to off
             self._is_on = False
+
         self.async_write_ha_state()
 
     async def async_turn_on(self, **kwargs):
@@ -106,14 +121,18 @@ class ModeSwitch(SwitchEntity, RestoreEntity):
         self._controlled_by = kwargs.get("controlled_by", "manual")
         self._expire_at = None
         if self._unsub_timer:
-            self._unsub_timer(); self._unsub_timer = None
+            self._unsub_timer()
+            self._unsub_timer = None
         self.async_write_ha_state()
 
     def _schedule_expiration(self, minutes: int):
         if self._unsub_timer:
-            self._unsub_timer(); self._unsub_timer = None
+            self._unsub_timer()
+            self._unsub_timer = None
         if minutes <= 0:
-            self._expire_at = None; return
+            # No expiration → indefinite ON
+            self._expire_at = None
+            return
         now = dt_util.now()
         self._expire_at = now + timedelta(minutes=minutes)
         self._start_timer((self._expire_at - now).total_seconds())
@@ -121,7 +140,7 @@ class ModeSwitch(SwitchEntity, RestoreEntity):
     def _start_timer(self, seconds: float):
         @callback
         def _cb(_now):
-            self.hass.create_task(self.async_turn_off())
+            self.hass.create_task(self.async_turn_off(controlled_by="timer"))
         self._unsub_timer = async_call_later(self.hass, seconds, _cb)
 
 
@@ -163,7 +182,6 @@ class CalendarOverrideSwitch(SwitchEntity, RestoreEntity):
         if last:
             self._is_on = last.state == "on"
         else:
-            # Default to off - calendar controls binary sensors by default
             self._is_on = False
         self.async_write_ha_state()
 
