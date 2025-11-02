@@ -351,6 +351,7 @@ logger:
  - Option to link each mode with a remote calendar
  - Auto delete automatic calendar event sensors after x days
  - In ConfigFlow, add more modes on yourself
+ - Ad ConfigFlow option for the No Tachanun sensor to always be turned off on Shabbos and Yom Tov
 
 
 **Made with ❤️ for Home Assistant and Jewish community**
