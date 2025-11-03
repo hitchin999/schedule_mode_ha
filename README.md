@@ -330,7 +330,7 @@ logger:
 
 - **Developer**: OnOff Automations
 - **Special Thanks**: Home Assistant Community
-- **Hebrew Calendar**: Yoely Goldstien - HA [YidCal](https://github.com/hitchin999/YidCal) Integration
+- **Hebrew Calendar**: Yoely Goldstein | [YidCal](https://github.com/hitchin999/YidCal) Integration
   
 ## Changelog
 
