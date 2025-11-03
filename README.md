@@ -330,8 +330,8 @@ logger:
 
 - **Developer**: OnOff Automations
 - **Special Thanks**: Home Assistant Community
-- **Hebrew Calendar**: HA YidCal Integration
-
+- **Hebrew Calendar**: Yoely Goldstien - HA [YidCal](https://github.com/hitchin999/YidCal) Integration
+  
 ## Changelog
 
 ### Version 0.0.1 (Current)
@@ -352,6 +352,7 @@ logger:
  - Auto delete automatic calendar event sensors after x days
  - In ConfigFlow, add more modes on yourself
  - Ad ConfigFlow option for the No Tachanun sensor to always be turned off on Shabbos and Yom Tov
-
+ - Option when Bris syncs with No Tachanun, No Tachanun should turn on from the Alos Till Chatzus
+ - Use time duration options to override the calendar event and turn off switches with duration time, have a swtich to override duration time
 
 **Made with ❤️ for Home Assistant and Jewish community**
